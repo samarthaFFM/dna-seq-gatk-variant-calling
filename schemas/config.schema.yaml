@@ -9,17 +9,8 @@ properties:
     type: string
   units:
     type: string
-
-  ref:
-    type: object
-    properties:
-      genome:
-        type: string
-      known-variants:
-        type: string
-    required:
-      - genome
-      - known-variants
+  references:
+    type: string
 
   filtering:
     type: object
@@ -85,7 +76,7 @@ properties:
 required:
   - samples
   - units
-  - ref
+  - references
   - filtering
   - processing
   - params
