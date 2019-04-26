@@ -1,0 +1,24 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: row of the references.tsv, representing a reference needed for data analysis rules
+type: object
+properties:
+  reference_type:
+    type: string
+    description: type of reference
+    enum: ["genome", "dbsnp", "transcripts"]
+  file:
+    type: string
+    description: reference file name to use
+  file_download:
+    type: string
+    description: download link for the reference file
+  index:
+    type: string
+    description: index file name to use
+  index_download:
+    type: string
+    description: download link for the index file
+required:
+  - reference_type
+  - file
+  - file_download

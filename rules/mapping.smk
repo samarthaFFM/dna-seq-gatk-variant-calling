@@ -29,16 +29,33 @@ rule trim_reads_pe:
     wrapper:
         "0.30.0/bio/trimmomatic/pe"
 
+rule bwa_index:
+    input:
+        "data/ref/genome/{genome}.fasta"
+    output:
+        "data/ref/genome/{genome}.amb",
+        "data/ref/genome/{genome}.ann",
+        "data/ref/genome/{genome}.bwt",
+        "data/ref/genome/{genome}.pac",
+        "data/ref/genome/{genome}.sa"
+    log:
+        "logs/bwa_index/{genome}.log"
+    params:
+        prefix="data/ref/genome/{genome}",
+        algorithm="bwtsw"
+    wrapper:
+        "0.33.0/bio/bwa/index"
 
 rule map_reads:
     input:
-        reads=get_trimmed_reads
+        reads = get_trimmed_reads,
+        ref = "data/ref/genome/" + get_ref
     output:
         temp("mapped/{sample}-{unit}.sorted.bam")
     log:
         "logs/bwa_mem/{sample}-{unit}.log"
     params:
-        index=config["ref"]["genome"],
+        index=input.ref,
         extra=get_read_group,
         sort="samtools",
         sort_order="coordinate"
@@ -65,8 +82,8 @@ rule recalibrate_base_qualities:
     input:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
-        ref=config["ref"]["genome"],
-        known=config["ref"]["known-variants"]
+        ref="data/ref/genome/" + get_ref,
+        known="data/ref/dbsnp/" + get_dbsnp
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:

@@ -13,8 +13,8 @@ if "restrict-regions" in config["processing"]:
 rule call_variants:
     input:
         bam=get_sample_bams,
-        ref=config["ref"]["genome"],
-        known=config["ref"]["known-variants"],
+        ref="data/ref/genome/" + get_ref,
+        known="data/ref/dbsnp/" + get_dbsnp,
         regions="called/{contig}.regions.bed" if config["processing"].get("restrict-regions") else []
     output:
         gvcf=protected("called/{sample}.{contig}.g.vcf.gz")
@@ -28,7 +28,7 @@ rule call_variants:
 
 rule combine_calls:
     input:
-        ref=config["ref"]["genome"],
+        ref="data/ref/genome/" + get_ref,
         gvcfs=expand("called/{sample}.{{contig}}.g.vcf.gz", sample=samples.index)
     output:
         gvcf="called/all.{contig}.g.vcf.gz"
@@ -40,7 +40,7 @@ rule combine_calls:
 
 rule genotype_variants:
     input:
-        ref=config["ref"]["genome"],
+        ref="data/ref/genome/" + get_ref,
         gvcf="called/all.{contig}.g.vcf.gz"
     output:
         vcf=temp("genotyped/all.{contig}.vcf.gz")
@@ -54,7 +54,7 @@ rule genotype_variants:
 
 rule merge_variants:
     input:
-        vcf=expand("genotyped/all.{contig}.vcf.gz", contig=contigs)
+        vcf=expand("genotyped/all.{contig}.vcf.gz", contig = get_contigs)
     output:
         vcf="genotyped/all.vcf.gz"
     log:

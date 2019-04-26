@@ -14,9 +14,8 @@ units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], 
 units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])  # enforce str in index
 validate(units, schema="../schemas/units.schema.yaml")
 
-# contigs in reference genome
-contigs = pd.read_table(config["ref"]["genome"] + ".fai",
-                        header=None, usecols=[0], squeeze=True, dtype=str)
+references = pd.read_table(config["references"]).set_index("reference_type", drop=False)
+validate(references, schema="../schemas/references.schema.yaml")
 
 
 ##### Wildcard constraints #####
@@ -24,7 +23,6 @@ wildcard_constraints:
     vartype="snvs|indels",
     sample="|".join(samples.index),
     unit="|".join(units["unit"]),
-    contig="|".join(contigs),
     idx_ext="|".join('fai', 'csi', 'tbi')
 
 
@@ -36,6 +34,26 @@ def get_fastq(wildcards):
     if len(fastqs) == 2:
         return {"r1": fastqs.fq1, "r2": fastqs.fq2}
     return {"r1": fastqs.fq1}
+
+
+def get_ref():
+    """Get the file name of the genome fasta file in references.tsv."""
+    return references.loc['genome'].get("file")
+
+def get_ref_idx():
+    """Get the file name of the genome fasta index file in references.tsv."""
+    return references.loc['genome'].get("index_file")
+
+def get_contigs():
+    """Get the contigs list from the genome fasta index file in references.tsv."""
+    return pd.read_table("data/ref/genome/" + references.loc['genome'].get("index_file"),
+                            header=None, usecols=[0], squeeze=True, dtype=str)
+    
+
+def get_dbsnp():
+    """Get the file name of the genome fasta file in references.tsv."""
+    return references.loc['dbsnp'].get("file")
+
 
 
 def is_single_end(sample, unit):
