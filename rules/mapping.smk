@@ -49,13 +49,13 @@ rule bwa_index:
 rule map_reads:
     input:
         reads = get_trimmed_reads,
-        ref = "data/ref/genome/" + get_ref
+        ref = "data/ref/genome/" + unpack(get_ref)
     output:
         temp("mapped/{sample}-{unit}.sorted.bam")
     log:
         "logs/bwa_mem/{sample}-{unit}.log"
     params:
-        index=input.ref,
+        index = "data/ref/genome/" + unpack(get_ref_basename),
         extra=get_read_group,
         sort="samtools",
         sort_order="coordinate"
@@ -82,8 +82,8 @@ rule recalibrate_base_qualities:
     input:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
-        ref="data/ref/genome/" + get_ref,
-        known="data/ref/dbsnp/" + get_dbsnp
+        ref="data/ref/genome/" + unpack(get_ref),
+        known="data/ref/dbsnp/" + unpack(get_dbsnp)
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:

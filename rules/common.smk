@@ -1,4 +1,5 @@
 import pandas as pd
+import os.path as path
 from snakemake.utils import validate
 
 report: "../report/workflow.rst"
@@ -23,7 +24,8 @@ wildcard_constraints:
     vartype="snvs|indels",
     sample="|".join(samples.index),
     unit="|".join(units["unit"]),
-    idx_ext="|".join('fai', 'csi', 'tbi')
+    reference_type="|".join(['genome', 'dbsnp']),
+    idx_ext="|".join(['fai', 'csi', 'tbi'])
 
 
 ##### Helper functions #####
@@ -39,6 +41,14 @@ def get_fastq(wildcards):
 def get_ref():
     """Get the file name of the genome fasta file in references.tsv."""
     return references.loc['genome'].get("file")
+
+def get_ref_basename():
+    """Get the basename of the genome fasta file in references.tsv without its extension."""
+    return path.splitext( references.loc['genome'].get("file") )[0]
+
+def get_snpeff_database():
+    """Get the snpeff reference database name for the genome fasta file in references.tsv."""
+    return references.loc['genome'].get("snpeff_database")
 
 def get_ref_idx():
     """Get the file name of the genome fasta index file in references.tsv."""

@@ -7,7 +7,7 @@ rule snpeff:
     log:
         "logs/snpeff.log"
     params:
-        reference=config["ref"]["name"],
+        reference=get_snpeff_database(),
         extra="-Xmx6g"
     wrapper:
         "0.27.1/bio/snpeff"

@@ -18,6 +18,9 @@ properties:
   index_download:
     type: string
     description: download link for the index file
+  snpeff_database:
+    type: string
+    description: "snpeff database name for the reference genome used. Check available databases depending on snpeff version at: https://sourceforge.net/projects/snpeff/files/databases/"
 required:
   - reference_type
   - file
