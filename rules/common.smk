@@ -7,14 +7,14 @@ report: "../report/workflow.rst"
 configfile: "config.yaml"
 validate(config, schema="../schemas/config.schema.yaml")
 
-samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
+samples = pd.read_csv(config["samples"], sep = '\t').set_index("sample", drop=False)
 validate(samples, schema="../schemas/samples.schema.yaml")
 
-units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
+units = pd.read_csv(config["units"], dtype=str, sep = '\t').set_index(["sample", "unit"], drop=False)
 units.index = units.index.set_levels([i.astype(str) for i in units.index.levels])  # enforce str in index
 validate(units, schema="../schemas/units.schema.yaml")
 
-references = pd.read_table(config["references"]).set_index("reference_type", drop=False)
+references = pd.read_csv(config["references"], sep = '\t').set_index("reference_type", drop=False)
 validate(references, schema="../schemas/references.schema.yaml")
 
 
@@ -46,8 +46,8 @@ def get_ref_idx():
 
 def get_contigs():
     """Get the contigs list from the genome fasta index file in references.tsv."""
-    return pd.read_table("data/ref/genome/" + references.loc['genome'].get("index_file"),
-                            header=None, usecols=[0], squeeze=True, dtype=str)
+    return pd.read_csv("data/ref/genome/" + references.loc['genome'].get("index_file"),
+                            header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
     
 
 def get_dbsnp():
