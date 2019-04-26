@@ -24,7 +24,8 @@ wildcard_constraints:
     vartype="snvs|indels",
     sample="|".join(samples.index),
     unit="|".join(units["unit"]),
-    contig="|".join(contigs)
+    contig="|".join(contigs),
+    idx_ext="|".join('fai', 'csi', 'tbi')
 
 
 ##### Helper functions #####

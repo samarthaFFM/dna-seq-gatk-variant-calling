@@ -23,6 +23,7 @@ scripts/.snakemake*
 !.test
 !samples.tsv
 !units.tsv
+!references.tsv
 !schemas
 !schemas/*
 !.test/data
