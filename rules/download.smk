@@ -1,3 +1,5 @@
+import os.path as path
+
 # rule(s) to download data from ENA based on the samples.tsv file
 
 rule ena_download:
@@ -19,6 +21,8 @@ rule ena_download:
         ( curl -sS --output {output[1]} {params.fq2} ) 2>> {log};
         """
         
+# rule(s) to download reference data based on the references.tsv file
+
 rule ref_download:
     output:
         ref = "data/ref/{reference_type}/{reference_file}"
@@ -32,7 +36,13 @@ rule ref_download:
         "logs/ref_download/{reference_type}/{reference_file}.log"
     shell:
         """
-        ( curl -sS --output {output.ref} {params.file} ) 2> {log}
+        if [[ "{params.file}" =~ \.gz$ ]] && [[ ! "{wildcards.reference_file}" =~ \.gz ]]
+        then
+            ( curl -sS --output {output.ref}.gz {params.file} ) 2> {log}
+            ( gzip -d {output.ref}.gz ) 2>> {log}
+        else
+            ( curl -sS --output {output.ref} {params.file} ) 2> {log}
+        fi
         """
 
 rule idx_download:
