@@ -31,13 +31,13 @@ rule trim_reads_pe:
 
 rule bwa_index:
     input:
-        "data/ref/genome/{genome}.fasta"
+        genome_path + "{genome}" + get_ref_ext()
     output:
-        "data/ref/genome/{genome}.amb",
-        "data/ref/genome/{genome}.ann",
-        "data/ref/genome/{genome}.bwt",
-        "data/ref/genome/{genome}.pac",
-        "data/ref/genome/{genome}.sa"
+        genome_path + "{genome}.amb",
+        genome_path + "{genome}.ann",
+        genome_path + "{genome}.bwt",
+        genome_path + "{genome}.pac",
+        genome_path + "{genome}.sa"
     log:
         "logs/bwa_index/{genome}.log"
     params:
@@ -49,13 +49,13 @@ rule bwa_index:
 rule map_reads:
     input:
         reads = get_trimmed_reads,
-        ref = "data/ref/genome/" + unpack(get_ref)
+        ref_bwt = get_ref_basename() + ".bwt"
     output:
         temp("mapped/{sample}-{unit}.sorted.bam")
     log:
         "logs/bwa_mem/{sample}-{unit}.log"
     params:
-        index = "data/ref/genome/" + unpack(get_ref_basename),
+        index = get_ref_basename(),
         extra=get_read_group,
         sort="samtools",
         sort_order="coordinate"
@@ -82,8 +82,8 @@ rule recalibrate_base_qualities:
     input:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
-        ref="data/ref/genome/" + unpack(get_ref),
-        known="data/ref/dbsnp/" + unpack(get_dbsnp)
+        ref=get_ref(),
+        known=get_dbsnp()
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:

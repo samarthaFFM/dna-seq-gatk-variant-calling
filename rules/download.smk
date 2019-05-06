@@ -36,7 +36,7 @@ rule ref_download:
         "logs/ref_download/{reference_type}/{reference_file}.log"
     shell:
         """
-        if [[ "{params.file}" =~ \.gz$ ]] && [[ ! "{wildcards.reference_file}" =~ \.gz ]]
+        if [[ "{params.file}" =~ \.gz$ ]] && [[ ! "{wildcards.reference_file}" =~ \.gz$ ]]
         then
             ( curl -sS --output {output.ref}.gz {params.file} ) 2> {log}
             ( gzip -d {output.ref}.gz ) 2>> {log}
@@ -44,6 +44,8 @@ rule ref_download:
             ( curl -sS --output {output.ref} {params.file} ) 2> {log}
         fi
         """
+
+ruleorder: bwa_index > idx_download > ref_download
 
 rule idx_download:
     output:

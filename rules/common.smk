@@ -25,6 +25,7 @@ wildcard_constraints:
     sample="|".join(samples.index),
     unit="|".join(units["unit"]),
     reference_type="|".join(['genome', 'dbsnp']),
+    fasta_ext="|".join(['fa', 'fasta', 'fna']),
     idx_ext="|".join(['fai', 'csi', 'tbi'])
 
 
@@ -37,32 +38,43 @@ def get_fastq(wildcards):
         return {"r1": fastqs.fq1, "r2": fastqs.fq2}
     return {"r1": fastqs.fq1}
 
+genome_path = "data/ref/genome/"
 
 def get_ref():
     """Get the file name of the genome fasta file in references.tsv."""
-    return references.loc['genome'].get("file")
+    return genome_path + references.loc['genome'].get("file")
 
 def get_ref_basename():
     """Get the basename of the genome fasta file in references.tsv without its extension."""
-    return path.splitext( references.loc['genome'].get("file") )[0]
+    return genome_path + path.splitext( references.loc['genome'].get("file") )[0]
+
+def get_ref_ext():
+    """Get the extension of the genome fasta file in references.tsv."""
+    return path.splitext( references.loc['genome'].get("file") )[1]
+
+def get_ref_idx():
+    """Get the file name of the genome fasta index file in references.tsv."""
+    return genome_path + references.loc['genome'].get("index")
 
 def get_snpeff_database():
     """Get the snpeff reference database name for the genome fasta file in references.tsv."""
     return references.loc['genome'].get("snpeff_database")
 
-def get_ref_idx():
-    """Get the file name of the genome fasta index file in references.tsv."""
-    return references.loc['genome'].get("index_file")
 
 def get_contigs():
     """Get the contigs list from the genome fasta index file in references.tsv."""
-    return pd.read_csv("data/ref/genome/" + references.loc['genome'].get("index_file"),
+    return pd.read_csv(genome_path + references.loc['genome'].get("index"),
                             header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
     
+dbsnp_path = "data/ref/dbsnp/"
 
 def get_dbsnp():
     """Get the file name of the genome fasta file in references.tsv."""
-    return references.loc['dbsnp'].get("file")
+    return dbsnp_path + references.loc['dbsnp'].get("file")
+
+def get_dbsnp_idx():
+    """Get the file name of the genome fasta file in references.tsv."""
+    return dbsnp_path + references.loc['dbsnp'].get("index")
 
 
 
