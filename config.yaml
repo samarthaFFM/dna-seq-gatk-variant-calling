@@ -18,7 +18,7 @@ processing:
   remove-duplicates: true
   # Uncomment and point to a bed file with, e.g., captured regions if necessary,
   # see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
-  restrict-regions: data/ref/exome/S04380110_Covered.bed
+  restrict-regions: data/ref/exome/S04380110_Covered_ranges-only.sorted.bed
   # If regions are restricted, uncomment this to enlarge them by the given value in order to include
   # flanking areas.
   region-padding: 100
