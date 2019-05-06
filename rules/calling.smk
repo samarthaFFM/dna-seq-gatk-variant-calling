@@ -1,13 +1,14 @@
 if "restrict-regions" in config["processing"]:
     rule compose_regions:
         input:
-            config["processing"]["restrict-regions"]
+            regions = config["processing"]["restrict-regions"],
+            idx = get_ref_idx()
         output:
             "called/{contig}.regions.bed"
         conda:
             "../envs/bedops.yaml"
         shell:
-            "bedextract {wildcards.contig} {input} > {output}"
+            "bedextract {wildcards.contig} {input.regions} > {output}"
 
 
 rule call_variants:
