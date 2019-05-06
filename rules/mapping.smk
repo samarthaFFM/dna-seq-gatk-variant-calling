@@ -78,11 +78,27 @@ rule mark_duplicates:
         "0.26.1/bio/picard/markduplicates"
 
 
+rule create_dict:
+    input:
+        genome_path + "{genome}" + get_ref_ext()
+    output:
+        genome_path + "{genome}.dict"
+    log:
+        "logs/picard_create_sequence_dictionary/{genome}.log"
+    conda:
+        "../envs/picard.yaml"
+    shell:
+        "picard CreateSequenceDictionary "
+        "  R={input}"
+        "  O={output}"
+
+
 rule recalibrate_base_qualities:
     input:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
         ref=get_ref(),
+        dict=get_ref() + ".dict",
         known=get_dbsnp()
     output:
         bam=protected("recal/{sample}-{unit}.bam")

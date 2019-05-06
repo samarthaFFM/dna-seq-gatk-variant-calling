@@ -45,7 +45,7 @@ rule ref_download:
         fi
         """
 
-ruleorder: bwa_index > idx_download > ref_download
+ruleorder: create_dict > bwa_index > idx_download > ref_download
 
 rule idx_download:
     output:
