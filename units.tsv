@@ -1,39 +1,39 @@
 sample	unit	platform	library_strategy	fq1	fq2
 01_E	01_E	ILLUMINA	panel	data/raw/Essen/1_S1_L001_R1_001.fastq.gz	data/raw/Essen/1_S1_L001_R2_001.fastq.gz
-02_E	02_E	ILLUMINA	panel	data/raw/Essen/2_S1_L001_R1_001.fastq.gz	data/raw/Essen/2_S1_L001_R2_001.fastq.gz
-03_E	03_E	ILLUMINA	panel	data/raw/Essen/3_S1_L001_R1_001.fastq.gz	data/raw/Essen/3_S1_L001_R2_001.fastq.gz
-04_E	04_E	ILLUMINA	panel	data/raw/Essen/4_S1_L001_R1_001.fastq.gz	data/raw/Essen/4_S1_L001_R2_001.fastq.gz
-05_E	05_E	ILLUMINA	panel	data/raw/Essen/5_S1_L001_R1_001.fastq.gz	data/raw/Essen/5_S1_L001_R2_001.fastq.gz
-07_E	07_E	ILLUMINA	panel	data/raw/Essen/7_S1_L001_R1_001.fastq.gz	data/raw/Essen/7_S1_L001_R2_001.fastq.gz
-08_E	08_E	ILLUMINA	panel	data/raw/Essen/8_S1_L001_R1_001.fastq.gz	data/raw/Essen/8_S1_L001_R2_001.fastq.gz
-09_E	09_E	ILLUMINA	panel	data/raw/Essen/9_S1_L001_R1_001.fastq.gz	data/raw/Essen/9_S1_L001_R2_001.fastq.gz
-10_E	10_E	ILLUMINA	panel	data/raw/Essen/10_S1_L001_R1_001.fastq.gz	data/raw/Essen/10_S1_L001_R2_001.fastq.gz
-11_E	11_E	ILLUMINA	panel	data/raw/Essen/11_S1_L001_R1_001.fastq.gz	data/raw/Essen/11_S1_L001_R2_001.fastq.gz
-12_E	12_E	ILLUMINA	panel	data/raw/Essen/12_S1_L001_R1_001.fastq.gz	data/raw/Essen/12_S1_L001_R2_001.fastq.gz
-13_E	13_E	ILLUMINA	panel	data/raw/Essen/13_S1_L001_R1_001.fastq.gz	data/raw/Essen/13_S1_L001_R2_001.fastq.gz
-14_E	14_E	ILLUMINA	panel	data/raw/Essen/14_S1_L001_R1_001.fastq.gz	data/raw/Essen/14_S1_L001_R2_001.fastq.gz
-15_E	15_E	ILLUMINA	panel	data/raw/Essen/15_S1_L001_R1_001.fastq.gz	data/raw/Essen/15_S1_L001_R2_001.fastq.gz
-16_E	16_E	ILLUMINA	panel	data/raw/Essen/16_S1_L001_R1_001.fastq.gz	data/raw/Essen/16_S1_L001_R2_001.fastq.gz
-17_E	17_E	ILLUMINA	panel	data/raw/Essen/17_S1_L001_R1_001.fastq.gz	data/raw/Essen/17_S1_L001_R2_001.fastq.gz
-18_E	18_E	ILLUMINA	panel	data/raw/Essen/18_S1_L001_R1_001.fastq.gz	data/raw/Essen/18_S1_L001_R2_001.fastq.gz
-19_E	19_E	ILLUMINA	panel	data/raw/Essen/19_S1_L001_R1_001.fastq.gz	data/raw/Essen/19_S1_L001_R2_001.fastq.gz
-20_E	20_E	ILLUMINA	panel	data/raw/Essen/20_S1_L001_R1_001.fastq.gz	data/raw/Essen/20_S1_L001_R2_001.fastq.gz
-01_K	01_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 1.fastq.gz'	data/raw/Koeln/'R2_Probe 1.fastq.gz'
-02_K	02_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 2.fastq.gz'	data/raw/Koeln/'R2_Probe 2.fastq.gz'
-03_K	03_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 3.fastq.gz'	data/raw/Koeln/'R2_Probe 3.fastq.gz'
-04_K	04_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 4.fastq.gz'	data/raw/Koeln/'R2_Probe 4.fastq.gz'
-05_K	05_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 5.fastq.gz'	data/raw/Koeln/'R2_Probe 5.fastq.gz'
-07_K	07_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 7.fastq.gz'	data/raw/Koeln/'R2_Probe 7.fastq.gz'
-08_K	08_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 8.fastq.gz'	data/raw/Koeln/'R2_Probe 8.fastq.gz'
-09_K	09_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 9.fastq.gz'	data/raw/Koeln/'R2_Probe 9.fastq.gz'
-10_K	10_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 10.fastq.gz'	data/raw/Koeln/'R2_Probe 10.fastq.gz'
-11_K	11_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 11.fastq.gz'	data/raw/Koeln/'R2_Probe 11.fastq.gz'
-12_K	12_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 12.fastq.gz'	data/raw/Koeln/'R2_Probe 12.fastq.gz'
-13_K	13_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 13.fastq.gz'	data/raw/Koeln/'R2_Probe 13.fastq.gz'
-14_K	14_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 14.fastq.gz'	data/raw/Koeln/'R2_Probe 14.fastq.gz'
-15_K	15_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 15.fastq.gz'	data/raw/Koeln/'R2_Probe 15.fastq.gz'
-16_K	16_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 16.fastq.gz'	data/raw/Koeln/'R2_Probe 16.fastq.gz'
-17_K	17_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 17.fastq.gz'	data/raw/Koeln/'R2_Probe 17.fastq.gz'
-18_K	18_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 18.fastq.gz'	data/raw/Koeln/'R2_Probe 18.fastq.gz'
-19_K	19_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 19.fastq.gz'	data/raw/Koeln/'R2_Probe 19.fastq.gz'
-20_K	20_K	ILLUMINA	panel	data/raw/Koeln/'R1_Probe 20.fastq.gz'	data/raw/Koeln/'R2_Probe 20.fastq.gz'
+02_E	02_E	ILLUMINA	panel	data/raw/Essen/2_S2_L001_R1_001.fastq.gz	data/raw/Essen/2_S2_L001_R2_001.fastq.gz
+03_E	03_E	ILLUMINA	panel	data/raw/Essen/3_S3_L001_R1_001.fastq.gz	data/raw/Essen/3_S3_L001_R2_001.fastq.gz
+04_E	04_E	ILLUMINA	panel	data/raw/Essen/4_S4_L001_R1_001.fastq.gz	data/raw/Essen/4_S4_L001_R2_001.fastq.gz
+05_E	05_E	ILLUMINA	panel	data/raw/Essen/5_S5_L001_R1_001.fastq.gz	data/raw/Essen/5_S5_L001_R2_001.fastq.gz
+07_E	07_E	ILLUMINA	panel	data/raw/Essen/7_S6_L001_R1_001.fastq.gz	data/raw/Essen/7_S6_L001_R2_001.fastq.gz
+08_E	08_E	ILLUMINA	panel	data/raw/Essen/8_S7_L001_R1_001.fastq.gz	data/raw/Essen/8_S7_L001_R2_001.fastq.gz
+09_E	09_E	ILLUMINA	panel	data/raw/Essen/9_S8_L001_R1_001.fastq.gz	data/raw/Essen/9_S8_L001_R2_001.fastq.gz
+10_E	10_E	ILLUMINA	panel	data/raw/Essen/10_S9_L001_R1_001.fastq.gz	data/raw/Essen/10_S9_L001_R2_001.fastq.gz
+11_E	11_E	ILLUMINA	panel	data/raw/Essen/11_S10_L001_R1_001.fastq.gz	data/raw/Essen/11_S10_L001_R2_001.fastq.gz
+12_E	12_E	ILLUMINA	panel	data/raw/Essen/12_S11_L001_R1_001.fastq.gz	data/raw/Essen/12_S11_L001_R2_001.fastq.gz
+13_E	13_E	ILLUMINA	panel	data/raw/Essen/13_S12_L001_R1_001.fastq.gz	data/raw/Essen/13_S12_L001_R2_001.fastq.gz
+14_E	14_E	ILLUMINA	panel	data/raw/Essen/14_S13_L001_R1_001.fastq.gz	data/raw/Essen/14_S13_L001_R2_001.fastq.gz
+15_E	15_E	ILLUMINA	panel	data/raw/Essen/15_S14_L001_R1_001.fastq.gz	data/raw/Essen/15_S14_L001_R2_001.fastq.gz
+16_E	16_E	ILLUMINA	panel	data/raw/Essen/16_S15_L001_R1_001.fastq.gz	data/raw/Essen/16_S15_L001_R2_001.fastq.gz
+17_E	17_E	ILLUMINA	panel	data/raw/Essen/17_S16_L001_R1_001.fastq.gz	data/raw/Essen/17_S16_L001_R2_001.fastq.gz
+18_E	18_E	ILLUMINA	panel	data/raw/Essen/18_S17_L001_R1_001.fastq.gz	data/raw/Essen/18_S17_L001_R2_001.fastq.gz
+19_E	19_E	ILLUMINA	panel	data/raw/Essen/19_S18_L001_R1_001.fastq.gz	data/raw/Essen/19_S18_L001_R2_001.fastq.gz
+20_E	20_E	ILLUMINA	panel	data/raw/Essen/20_S19_L001_R1_001.fastq.gz	data/raw/Essen/20_S19_L001_R2_001.fastq.gz
+01_K	01_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 1.fastq.gz	data/raw/Koeln/R2_Probe 1.fastq.gz
+02_K	02_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 2.fastq.gz	data/raw/Koeln/R2_Probe 2.fastq.gz
+03_K	03_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 3.fastq.gz	data/raw/Koeln/R2_Probe 3.fastq.gz
+04_K	04_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 4.fastq.gz	data/raw/Koeln/R2_Probe 4.fastq.gz
+05_K	05_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 5.fastq.gz	data/raw/Koeln/R2_Probe 5.fastq.gz
+07_K	07_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 7.fastq.gz	data/raw/Koeln/R2_Probe 7.fastq.gz
+08_K	08_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 8.fastq.gz	data/raw/Koeln/R2_Probe 8.fastq.gz
+09_K	09_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 9.fastq.gz	data/raw/Koeln/R2_Probe 9.fastq.gz
+10_K	10_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 10.fastq.gz	data/raw/Koeln/R2_Probe 10.fastq.gz
+11_K	11_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 11.fastq.gz	data/raw/Koeln/R2_Probe 11.fastq.gz
+12_K	12_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 12.fastq.gz	data/raw/Koeln/R2_Probe 12.fastq.gz
+13_K	13_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 13.fastq.gz	data/raw/Koeln/R2_Probe 13.fastq.gz
+14_K	14_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 14.fastq.gz	data/raw/Koeln/R2_Probe 14.fastq.gz
+15_K	15_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 15.fastq.gz	data/raw/Koeln/R2_Probe 15.fastq.gz
+16_K	16_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 16.fastq.gz	data/raw/Koeln/R2_Probe 16.fastq.gz
+17_K	17_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 17.fastq.gz	data/raw/Koeln/R2_Probe 17.fastq.gz
+18_K	18_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 18.fastq.gz	data/raw/Koeln/R2_Probe 18.fastq.gz
+19_K	19_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 19.fastq.gz	data/raw/Koeln/R2_Probe 19.fastq.gz
+20_K	20_K	ILLUMINA	panel	data/raw/Koeln/R1_Probe 20.fastq.gz	data/raw/Koeln/R2_Probe 20.fastq.gz
