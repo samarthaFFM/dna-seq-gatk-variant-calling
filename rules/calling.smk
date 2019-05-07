@@ -15,6 +15,7 @@ rule call_variants:
         bam=get_sample_bams,
         ref=get_ref(),
         known=get_dbsnp(),
+        known_idx=get_dbsnp_idx(),
         regions="called/{contig}.regions.bed" if config["processing"].get("restrict-regions") else []
     output:
         gvcf=protected("called/{sample}.{contig}.g.vcf.gz")

@@ -98,8 +98,9 @@ rule recalibrate_base_qualities:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
         ref=get_ref(),
-        dict=get_ref() + ".dict",
-        known=get_dbsnp()
+        dict=get_ref_basename() + ".dict",
+        known=get_dbsnp(),
+        known_idx=get_dbsnp_idx()
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:
