@@ -47,7 +47,7 @@ rule ref_download:
 
 ruleorder: create_dict > bwa_index > idx_download > ref_download
 
-rule idx_download:
+checkpoint idx_download:
     output:
         idx = "data/ref/{reference_type}/{reference_file}.{idx_ext}"
     conda:

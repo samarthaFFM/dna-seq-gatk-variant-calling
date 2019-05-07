@@ -1,8 +1,7 @@
 if "restrict-regions" in config["processing"]:
     rule compose_regions:
         input:
-            regions = config["processing"]["restrict-regions"],
-            idx = get_ref_idx()
+            regions = config["processing"]["restrict-regions"]
         output:
             "called/{contig}.regions.bed"
         conda:
@@ -53,9 +52,23 @@ rule genotype_variants:
         "0.27.1/bio/gatk/genotypegvcfs"
 
 
+def generate_genotype_interval_vcfs(wildcards):
+    """
+    Get the contigs list from the genome fasta index file in references.tsv and generate vcf file names for intervals to genotype.
+    """
+    return expand("genotyped/all.{contig}.vcf.gz",
+                    contig = pd.read_csv(checkpoints.idx_download.get(
+                                reference_type="genome",
+                                reference_file=references.loc['genome'].get("file"),
+                                idx_ext=path.splitext( references.loc['genome'].get("index") )[1].lstrip('.')
+                                ).output.idx,
+                            header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
+                    )
+
 rule merge_variants:
     input:
-        vcf=expand("genotyped/all.{contig}.vcf.gz", contig = get_contigs())
+        idx=get_ref_idx(),
+        vcf=generate_genotype_interval_vcfs
     output:
         vcf="genotyped/all.vcf.gz"
     log:

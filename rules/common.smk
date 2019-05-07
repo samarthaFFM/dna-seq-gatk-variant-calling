@@ -60,12 +60,7 @@ def get_snpeff_database():
     """Get the snpeff reference database name for the genome fasta file in references.tsv."""
     return references.loc['genome'].get("snpeff_database")
 
-
-def get_contigs():
-    """Get the contigs list from the genome fasta index file in references.tsv."""
-    return pd.read_csv(genome_path + references.loc['genome'].get("index"),
-                            header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
-    
+   
 dbsnp_path = "data/ref/dbsnp/"
 
 def get_dbsnp():
@@ -75,7 +70,6 @@ def get_dbsnp():
 def get_dbsnp_idx():
     """Get the file name of the genome fasta file in references.tsv."""
     return dbsnp_path + references.loc['dbsnp'].get("index")
-
 
 
 def is_single_end(sample, unit):
