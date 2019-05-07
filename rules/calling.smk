@@ -68,7 +68,6 @@ def generate_genotype_interval_vcfs(wildcards):
 
 rule merge_variants:
     input:
-        idx=get_ref_idx(),
         vcf=generate_genotype_interval_vcfs
     output:
         vcf="genotyped/all.vcf.gz"
