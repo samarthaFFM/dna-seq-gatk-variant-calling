@@ -25,7 +25,7 @@ processing:
 
 params:
   gatk:
-    HaplotypeCaller: ""
+    HaplotypeCaller: "--disable-read-filter NotDuplicateReadFilter"
     BaseRecalibrator: ""
     GenotypeGVCFs: ""
     VariantRecalibrator: ""
