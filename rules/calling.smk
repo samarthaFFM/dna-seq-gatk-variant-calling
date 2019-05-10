@@ -1,13 +1,37 @@
 if "restrict-regions" in config["processing"]:
+    rule sort_bed:
+        input:
+            "{restrict_regions}.bed"
+        output:
+            "{restrict_regions}.sort-bed_sorted.bed"
+        conda:
+            "../envs/bedops.yaml"
+        shell:
+            "sort-bed {input} > {output}"
+
+
+if "restrict-regions" in config["processing"]:
     rule compose_regions:
         input:
-            regions = config["processing"]["restrict-regions"]
+            get_restrict_regions_basename() + ".sort-bed_sorted.bed"
         output:
             "called/{contig}.regions.bed"
         conda:
             "../envs/bedops.yaml"
         shell:
-            "bedextract {wildcards.contig} {input.regions} > {output}"
+            "bedextract {wildcards.contig} {input} > {output}"
+
+
+if "restrict-regions" in config["processing"]:
+    checkpoint extract_restrict_chromosomes:
+        input:
+            "{restrict_regions}.bed"
+        output:
+            chrs = "{restrict_regions}.chrs.tsv"
+        conda:
+            "../envs/bedops.yaml"
+        shell:
+            "sort -u -k 1,1 {input} | cut -f 1 > {output.chrs}"
 
 
 rule call_variants:
@@ -57,14 +81,19 @@ def generate_genotype_interval_vcfs(wildcards):
     """
     Get the contigs list from the genome fasta index file in references.tsv and generate vcf file names for intervals to genotype.
     """
-    return expand("genotyped/all.{contig}.vcf.gz",
-                    contig = pd.read_csv(checkpoints.idx_download.get(
-                                reference_type="genome",
-                                reference_file=references.loc['genome'].get("file"),
-                                idx_ext=path.splitext( references.loc['genome'].get("index") )[1].lstrip('.')
+    contig = pd.read_csv(checkpoints.idx_download.get(
+                reference_type="genome",
+                reference_file=references.loc['genome'].get("file"),
+                idx_ext=path.splitext( references.loc['genome'].get("index") )[1].lstrip('.')
                                 ).output.idx,
-                            header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
-                    )
+                header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
+    if "restrict-regions" in config["processing"]:
+        contigs_to_use = pd.read_csv(checkpoints.extract_restrict_chromosomes.get(
+                restrict_regions=get_restrict_regions_basename()
+                                ).output.chrs,
+                header=None, usecols=[0], squeeze=True, dtype=str, sep = '\t')
+        contig = pd.merge(contig, contigs_to_use, how = 'inner')[0]
+    return expand("genotyped/all.{contig}.vcf.gz", contig = contig)
 
 rule merge_variants:
     input:

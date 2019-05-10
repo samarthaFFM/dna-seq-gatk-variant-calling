@@ -74,6 +74,11 @@ def get_dbsnp_idx():
     return dbsnp_path + references.loc['dbsnp'].get("index")
 
 
+def get_restrict_regions_basename():
+    """Get the basename of the genome fasta file in references.tsv without its extension."""
+    return path.splitext( config["processing"]["restrict-regions"] )[0]
+
+
 def is_single_end(sample, unit):
     """Return True if sample-unit is single end."""
     return pd.isnull(units.loc[(sample, unit), "fq2"])
