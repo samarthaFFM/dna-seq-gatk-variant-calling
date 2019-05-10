@@ -15,7 +15,7 @@ filtering:
       "QD < 2.0 || FS > 200.0 || ReadPosRankSum < -20.0"
 
 processing:
-  remove-duplicates: true
+  remove-duplicates: false
   # Uncomment and point to a bed file with, e.g., captured regions if necessary,
   # see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
   restrict-regions: data/ref/panel/nNGML1_CNGHS-03332X-239.covered_BED.sorted.bed
@@ -25,12 +25,12 @@ processing:
 
 params:
   gatk:
-    HaplotypeCaller: "--disable-read-filter NotDuplicateReadFilter"
+    HaplotypeCaller: ""
     BaseRecalibrator: ""
     GenotypeGVCFs: ""
     VariantRecalibrator: ""
   picard:
-    MarkDuplicates: "REMOVE_DUPLICATES=false REMOVE_SEQUENCING_DUPLICATES=true"
+    MarkDuplicates: ""
   trimmomatic:
     pe:
       trimmer:
