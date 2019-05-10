@@ -16,9 +16,11 @@ filtering:
 
 processing:
   remove-duplicates: false
-  # Uncomment and point to a bed file with, e.g., captured regions if necessary,
-  # see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
-  restrict-regions: data/ref/panel/nNGML1_CNGHS-03332X-239.covered_BED.sorted.bed
+  # Uncomment and point to a bed file with, e.g., captured regions if necessary.
+  # Please ensure that the file matches the reference genome you are using, i.e.
+  # it should use the same genome build and the same chromosome naming scheme.
+  # Also see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
+  restrict-regions: data/ref/panel/nNGML1_CNGHS-03332X-239.covered_BED.with_chr_prefix.GRCh38.bed
   # If regions are restricted, uncomment this to enlarge them by the given value in order to include
   # flanking areas.
   region-padding: 100
