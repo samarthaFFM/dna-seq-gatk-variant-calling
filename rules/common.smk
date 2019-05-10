@@ -9,6 +9,8 @@ configfile: "config.yaml"
 validate(config, schema="../schemas/config.schema.yaml")
 
 samples = pd.read_csv(config["samples"], sep = '\t').set_index("sample", drop=False)
+if 'group' in samples:
+    samples.group = samples.group.astype(str)
 validate(samples, schema="../schemas/samples.schema.yaml")
 
 units = pd.read_csv(config["units"], dtype=str, sep = '\t').set_index(["sample", "unit"], drop=False)
