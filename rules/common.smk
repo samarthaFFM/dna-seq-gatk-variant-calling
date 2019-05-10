@@ -114,9 +114,9 @@ def get_regions_param(regions=config["processing"].get("restrict-regions"), defa
 
 
 def get_call_variants_params(wildcards, input):
-    return (get_regions_param(regions=input.regions, default=f"--intervals {wildcards.contig}") +
-            " " + config["params"]["gatk"]["HaplotypeCaller"])
-
+    config_params = config['params']['gatk']['HaplotypeCaller']
+    regions_params = get_regions_param(regions=input.regions, default=f"--intervals {wildcards.contig}")
+    return f"{config_params} {regions_params}"
 
 def get_recal_input(bai=False):
     # case 1: no duplicate removal
