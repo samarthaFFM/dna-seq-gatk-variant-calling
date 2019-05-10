@@ -5,7 +5,7 @@ include: "rules/common.smk"
 rule all:
     input:
         "annotated/all.vcf.gz",
-        expand("group/{group_id}.bcf",  = samples['group'].unique() ),
+        expand("group/{group_id}.bcf",  group_id = samples['group'].unique() ),
         "qc/multiqc.html",
         "plots/depths.svg",
         "plots/allele-freqs.svg"
