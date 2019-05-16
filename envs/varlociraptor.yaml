@@ -1,0 +1,8 @@
+name: varlociraptor
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - varlociraptor=1.0.1=h6bc0978_0
+
