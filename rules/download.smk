@@ -29,19 +29,21 @@ rule ref_download:
     conda:
         "../envs/curl.yaml"
     params:
-        file = lambda wildcards: references.loc[wildcards.reference_type].get("file_download"),
+        download_link = lambda wildcards: references.loc[wildcards.reference_type].get("file_download"),
     resources:
         parallel_download_connections = 1
     log:
         "logs/ref_download/{reference_type}/{reference_file}.log"
     shell:
         """
-        if [[ "{params.file}" =~ \.gz$ ]] && [[ ! "{wildcards.reference_file}" =~ \.gz$ ]]
+        if [[ "{params.download_link}" =~ \.gz$ ]] && [[ ! "{output.ref}" =~ \.gz$ ]]
         then
-            ( curl -sS --output {output.ref}.gz {params.file} ) 2> {log}
-            ( gzip -d {output.ref}.gz ) 2>> {log}
+            ( curl -sS --output {output.ref}.gz {params.download_link} ) 2> {log}
+            # this catches gzip warning exit status 2 and lets snakemake continue, errors
+            # should still cause failure: `if [ $? -eq 2 ]; then true; fi`
+            ( gzip -d {output.ref}.gz || if [ $? -eq 2 ]; then true; fi ) 2>> {log}
         else
-            ( curl -sS --output {output.ref} {params.file} ) 2> {log}
+            ( curl -sS --output {output.ref} {params.download_link} ) 2> {log}
         fi
         """
 
@@ -53,14 +55,22 @@ checkpoint idx_download:
     conda:
         "../envs/curl.yaml"
     params:
-        index = lambda wildcards: references.loc[wildcards.reference_type].get("index_download")
+        download_link = lambda wildcards: references.loc[wildcards.reference_type].get("index_download")
     resources:
         parallel_download_connections = 1
     log:
         "logs/ref_download/{reference_type}/{reference_file}.{idx_ext}.log"
     shell:
         """
-        ( curl -sS --output {output.idx} {params.index} ) 2> {log}
+        if [[ "{params.download_link}" =~ \.gz$ ]] && [[ ! "{output.idx}" =~ \.gz$ ]]
+        then
+            ( curl -sS --output {output.idx} {params.download_link} ) 2> {log}
+            # this catches gzip warning exit status 2 and lets snakemake continue, errors
+            # should still cause failure: `if [ $? -eq 2 ]; then true; fi`
+            ( gzip -d {output.idx}.gz || if [ $? -eq 2 ]; then true; fi ) 2>> {log}
+        else
+            ( curl -sS --output {output.idx} {params.download_link} ) 2> {log}
+        fi
         """
 
 
