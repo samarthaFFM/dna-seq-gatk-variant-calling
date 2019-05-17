@@ -76,6 +76,62 @@ rule genotype_variants:
     wrapper:
         "0.27.1/bio/gatk/genotypegvcfs"
 
+rule generate_varlociraptor_scenario:
+    input:
+        template="tumour.yaml"
+    output:
+        "varlociraptor/{sample}-{unit}.scenario.yaml"
+    params:
+        contamination = lambda w: str( 1.0 - float( samples.loc[w.sample].get("purity") ) )
+    log:
+        "logs/varlociraptor/{sample}-{unit}.scenario.log"
+    shell:
+        "( sed -e s'/FRACTION/{params.contamination}/' {input.template} >{output} ) 2> {log}"
+
+rule call_varlociraptor:
+    input:
+        ref=get_ref(),
+        ref_idx=get_ref_idx(),
+        scenario="varlociraptor/{sample}-{unit}.scenario.yaml",
+        candidates="genotyped/all.vcf.gz",
+        bam="recal/{sample}-{unit}.bam"
+    output:
+        "varlociraptor/{sample}-{unit}.bcf"
+    conda:
+        "../envs/varlociraptor.yaml"
+    log:
+        "logs/varlociraptor/{sample}-{unit}.log"
+    shell:
+        "( varlociraptor call variants "
+        "    --indel-window 56"
+        "    --output {output}"
+        "    --candidates {input.candidates}"
+        "    {input.ref}"
+        "   generic"
+        "    --scenario {input.scenario}"
+        "    --bams tumor={input.bam} ) 2> {log}"
+
+rule fdr_filter_varlociraptor:
+    input:
+        "varlociraptor/{sample}-{unit}.bcf"
+    output:
+        "varlociraptor/filter/fdr/{sample}-{unit}.fdr_{fdr,\d-\d+}.{events,[^\.]+}.{var_type,[^\.]+}.bcf"
+    conda:
+        "../envs/varlociraptor.yaml"
+    log:
+        "logs/varlociraptor/filter/fdr/{sample}-{unit}.fdr_{fdr}_{events}_{var_type}.log"
+    params:
+        events = lambda w: "--events " + " --events ".join( w.events.split("-") ),
+        fdr = lambda w: w.fdr.replace('-', '.')
+    shell:
+        "( varlociraptor filter-calls control-fdr"
+        "    {input}"
+        "    {params.events}"
+        "    --var {wildcards.var_type} "
+        "    --fdr {params.fdr} "
+        "   >{output} ) 2>> {log}"
+
+
 
 def generate_genotype_interval_vcfs(wildcards):
     """
