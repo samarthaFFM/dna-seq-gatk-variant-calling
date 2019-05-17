@@ -1,39 +1,39 @@
-sample	group	library_strategy
-01_E	01	panel
-02_E	02	panel
-03_E	03	panel
-04_E	04	panel
-05_E	05	panel
-07_E	07	panel
-08_E	08	panel
-09_E	09	panel
-10_E	10	panel
-11_E	11	panel
-12_E	12	panel
-13_E	13	panel
-14_E	14	panel
-15_E	15	panel
-16_E	16	panel
-17_E	17	panel
-18_E	18	panel
-19_E	19	panel
-20_E	20	panel
-01_K	01	panel
-02_K	02	panel
-03_K	03	panel
-04_K	04	panel
-05_K	05	panel
-07_K	07	panel
-08_K	08	panel
-09_K	09	panel
-10_K	10	panel
-11_K	11	panel
-12_K	12	panel
-13_K	13	panel
-14_K	14	panel
-15_K	15	panel
-16_K	16	panel
-17_K	17	panel
-18_K	18	panel
-19_K	19	panel
-20_K	20	panel
+sample	group	library_strategy	purity
+01_E	01	panel	0.95
+02_E	02	panel	0.50
+03_E	03	panel	0.90
+04_E	04	panel	0.90
+05_E	05	panel	0.70
+07_E	07	panel	0.60
+08_E	08	panel	0.70
+09_E	09	panel	0.50
+10_E	10	panel	0.70
+11_E	11	panel	0.30
+12_E	12	panel	0.90
+13_E	13	panel	0.30
+14_E	14	panel	0.90
+15_E	15	panel	0.50
+16_E	16	panel	0.80
+17_E	17	panel	0.70
+18_E	18_19	panel	0.20
+19_E	18_19	panel	0.20
+20_E	20	panel	0.50
+01_K	01	panel	0.95
+02_K	02	panel	0.50
+03_K	03	panel	0.90
+04_K	04	panel	0.90
+05_K	05	panel	0.70
+07_K	07	panel	0.60
+08_K	08	panel	0.70
+09_K	09	panel	0.50
+10_K	10	panel	0.70
+11_K	11	panel	0.30
+12_K	12	panel	0.90
+13_K	13	panel	0.30
+14_K	14	panel	0.90
+15_K	15	panel	0.50
+16_K	16	panel	0.80
+17_K	17	panel	0.70
+18_K	18_19	panel	0.20
+19_K	18_19	panel	0.20
+20_K	20	panel	0.50
