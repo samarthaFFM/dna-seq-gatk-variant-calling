@@ -28,7 +28,7 @@ wildcard_constraints:
     unit="|".join(units["unit"]),
     reference_type="|".join(['genome', 'dbsnp']),
     fasta_ext="|".join(['fa', 'fasta', 'fna']),
-    idx_ext="|".join(['fai', 'csi', 'tbi'])
+    idx_ext="|".join(['fai', 'csi', 'tbi', 'idx'])
 
 
 ##### Helper functions #####
