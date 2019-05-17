@@ -75,7 +75,7 @@ def get_dbsnp_idx():
 
 
 def get_restrict_regions_basename():
-    """Get the basename of the genome fasta file in references.tsv without its extension."""
+    """Get the basename of the restrict-regions file in config.yaml without its extension."""
     return path.splitext( config["processing"]["restrict-regions"] )[0]
 
 
