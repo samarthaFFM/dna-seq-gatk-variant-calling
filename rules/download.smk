@@ -47,13 +47,15 @@ rule ref_download:
         fi
         """
 
-ruleorder: create_dict > bwa_index > idx_download > ref_download
+ruleorder: create_dict > bwa_index > download_idx_or_create > ref_download
 
-checkpoint idx_download:
+checkpoint download_idx_or_create:
+    input:
+        ref = "data/ref/{reference_type}/{reference_file}"
     output:
         idx = "data/ref/{reference_type}/{reference_file}.{idx_ext}"
     conda:
-        "../envs/curl.yaml"
+        "../envs/curl_hts-1-9.yaml"
     params:
         download_link = lambda wildcards: references.loc[wildcards.reference_type].get("index_download")
     resources:
@@ -62,8 +64,17 @@ checkpoint idx_download:
         "logs/ref_download/{reference_type}/{reference_file}.{idx_ext}.log"
     shell:
         """
-        if [[ "{params.download_link}" =~ \.gz$ ]] && [[ ! "{output.idx}" =~ \.gz$ ]]
-        then
+        if [[ "{params.download_link}" == "nan" ]]; then
+            case "{wildcards.idx_ext}" in
+                "tbi")
+                    ( bcftools index --output {output.idx} {input.ref} ) 2> {log} ;;
+                "csi")
+                    ( bcftools index --csi --output {output.idx} {input.ref} ) 2> {log} ;;
+                "fai")
+                    ( samtools faidx {input.ref} ) 2> {log} ;;
+                *) (echo "unimplemented index extension"; exit 1) 2> {log} ;;
+            esac
+        elif [[ "{params.download_link}" =~ \.gz$ ]] && [[ ! "{output.idx}" =~ \.gz$ ]]; then
             ( curl -sS --output {output.idx} {params.download_link} ) 2> {log}
             # this catches gzip warning exit status 2 and lets snakemake continue, errors
             # should still cause failure: `if [ $? -eq 2 ]; then true; fi`
@@ -72,5 +83,4 @@ checkpoint idx_download:
             ( curl -sS --output {output.idx} {params.download_link} ) 2> {log}
         fi
         """
-
 

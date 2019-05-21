@@ -137,7 +137,7 @@ def generate_genotype_interval_vcfs(wildcards):
     """
     Get the contigs list from the genome fasta index file in references.tsv and generate vcf file names for intervals to genotype.
     """
-    contig = pd.read_csv(checkpoints.idx_download.get(
+    contig = pd.read_csv(checkpoints.download_idx_or_create.get(
                 reference_type="genome",
                 reference_file=references.loc['genome'].get("file"),
                 idx_ext=path.splitext( references.loc['genome'].get("index") )[1].lstrip('.')
