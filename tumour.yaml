@@ -1,13 +1,13 @@
 samples:
   tumor:
-    resolution: 100
+    resolution: 200
     contaminated:
       fraction: FRACTION
 
 events:
-  hom_ref:
+  absent:
     tumor: "0.0"
-  het:
-    tumor: "0.5"
-  hom_alt:
-    tumor: "1.0"
+  very_rare:
+    tumor: "]0.0,0.05]"
+  alt:
+    tumor: "]0.05,1.0]"
