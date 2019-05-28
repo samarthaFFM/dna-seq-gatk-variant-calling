@@ -115,6 +115,53 @@ rule recalibrate_base_qualities:
         "0.34.0/bio/gatk/baserecalibrator"
 
 
+rule realigner_target_creator:
+    input:
+        bam="recal/{sample}-{unit}.bam",
+        bai="recal/{sample}-{unit}.bai",
+        ref=get_ref(),
+        known=get_dbsnp(),
+        known_idx=get_dbsnp_idx()
+    output:
+        targets="realigned/{sample}-{unit}.intervals"
+    threads: 4
+    params:
+        threads=7
+    log:
+        "logs/gatk/realigner_target_creator/{sample}-{unit}.log"
+    shell:
+        "( gatk3 -T RealignerTargetCreator"
+        "   -R {input.ref}"
+        "   -I {input.bam}"
+        "   -known {input.known}"
+        "   -nt {params.threads}"
+        "   --disable_auto_index_creation_and_locking_when_reading_rods"
+        "   -o {output.targets} ) 2> {log}"
+
+
+rule indel_realigner:
+    input:
+        bam="recal/{sample}-{unit}.bam",
+        bai="recal/{sample}-{unit}.bai",
+        ref=get_ref(),
+        known=get_dbsnp(),
+        known_idx=get_dbsnp_idx(),
+        targets="realigned/{sample}-{unit}.intervals"
+    output:
+        bam="realigned/{sample}-{unit}.bam"
+    log:
+        "logs/gatk/indel_realigner/{sample}-{unit}.log"
+    shell:
+        "( gatk3 -T IndelRealigner"
+        "   -R {input.ref}"
+        "   -I {input.bam}"
+        "   -known {input.known}"
+        "   -targetIntervals {input.targets}"
+        "   -o {output.bam} ) 2>{log}"
+
+
+
+
 rule samtools_index:
     input:
         "{prefix}.bam"

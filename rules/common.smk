@@ -103,7 +103,7 @@ def get_trimmed_reads(wildcards):
 
 def get_sample_bams(wildcards):
     """Get all aligned reads of given sample."""
-    return expand("recal/{sample}-{unit}.bam",
+    return expand("realigned/{sample}-{unit}.bam",
                   sample=wildcards.sample,
                   unit=units.loc[wildcards.sample].unit)
 

@@ -76,6 +76,7 @@ rule genotype_variants:
     wrapper:
         "0.27.1/bio/gatk/genotypegvcfs"
 
+
 rule generate_varlociraptor_scenario:
     input:
         template="tumour.yaml"
@@ -88,13 +89,14 @@ rule generate_varlociraptor_scenario:
     shell:
         "( sed -e s'/FRACTION/{params.contamination}/' {input.template} >{output} ) 2> {log}"
 
+
 rule call_varlociraptor:
     input:
         ref=get_ref(),
         ref_idx=get_ref_idx(),
         scenario="varlociraptor/{sample}-{unit}.scenario.yaml",
         candidates="genotyped/all.vcf.gz",
-        bam="recal/{sample}-{unit}.bam"
+        bam="realigned/{sample}-{unit}.bam"
     output:
         "varlociraptor/{sample}-{unit}.bcf"
     conda:
