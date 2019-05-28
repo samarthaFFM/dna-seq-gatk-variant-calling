@@ -28,7 +28,6 @@ rule bcftools_view_vlr_for_annotation:
 
 rule snpeff_filtered_vlr:
     input:
-        get_restrict_regions(),
         "varlociraptor/filter/{filter}/{sample}-{unit}.fdr_{fdr}.{events}.{var_type}.vcf"
     output:
         vcf=report("snpeff/varlociraptor/filter/{filter}/{sample}-{unit}.fdr_{fdr}.{events}.{var_type}.vcf.gz", caption="../report/vcf.rst", category="Calls"),
