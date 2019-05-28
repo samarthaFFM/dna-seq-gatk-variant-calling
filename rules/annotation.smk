@@ -55,7 +55,7 @@ rule jannovar_filtered_vlr:
         database=get_jannovar_database(), # path to jannovar reference dataset
         extra="--show-all"         # optional parameters
     wrapper:
-        "0.35.0/bio/jannovar
+        "0.35.0/bio/jannovar"
 
 
 rule igv_reports_vlr:
