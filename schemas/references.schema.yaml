@@ -21,6 +21,9 @@ properties:
   snpeff_database:
     type: string
     description: "snpeff database name for the reference genome used. Check available databases depending on snpeff version at: https://sourceforge.net/projects/snpeff/files/databases/"
+  jannovar_database:
+    type: string
+    description: "jannovar database name for the reference genome used. Check available databases with jannovar-cli subcommand `db-list`"
 required:
   - reference_type
   - file
