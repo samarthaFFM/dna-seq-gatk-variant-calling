@@ -6,10 +6,11 @@ rule all:
     input:
         "annotated/all.vcf.gz",
         expand("group/{group_id}.bcf",  group_id = samples['group'].unique() ),
-        expand("varlociraptor/filter/fdr/{u.sample}-{u.unit}.fdr_{fdr}.{events}.{var_type}.bcf",
+        expand("{annotation}/varlociraptor/filter/fdr/{u.sample}-{u.unit}.fdr_{fdr}.{events}.{var_type}.html",
+                annotation = ["snpeff", "jannovar"],
                 u = units.itertuples(),
                 fdr = ["0-05", "0-001"],
-                events = ["HET-HOM_ALT"],
+                events = ["ALT-VERY_RARE"],
                 var_type = ["SNV", "INS", "DEL"] ),
         "qc/multiqc.html",
         "plots/depths.svg",

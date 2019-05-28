@@ -58,11 +58,14 @@ def get_ref_idx():
     """Get the file name of the genome fasta index file in references.tsv."""
     return genome_path + references.loc['genome'].get("index")
 
+def get_jannovar_database():
+    """Get the jannovar reference database name for the genome fasta file in references.tsv."""
+    return references.loc['genome'].get("jannovar_database")
+
 def get_snpeff_database():
     """Get the snpeff reference database name for the genome fasta file in references.tsv."""
     return references.loc['genome'].get("snpeff_database")
 
-   
 dbsnp_path = "data/ref/dbsnp/"
 
 def get_dbsnp():
@@ -73,6 +76,10 @@ def get_dbsnp_idx():
     """Get the file name of the genome fasta file in references.tsv."""
     return dbsnp_path + references.loc['dbsnp'].get("index")
 
+
+def get_restrict_regions():
+    """Get the restrict-regions file name from config.yaml."""
+    return config["processing"]["restrict-regions"]
 
 def get_restrict_regions_basename():
     """Get the basename of the restrict-regions file in config.yaml without its extension."""

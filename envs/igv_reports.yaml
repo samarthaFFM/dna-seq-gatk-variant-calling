@@ -1,0 +1,6 @@
+name: igv_reports
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconda::igv-reports =0.9.1
