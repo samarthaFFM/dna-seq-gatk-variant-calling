@@ -1,0 +1,6 @@
+name: igv_reports
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconda::jannovar-cli =0.25
