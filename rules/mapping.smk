@@ -98,16 +98,21 @@ rule recalibrate_base_qualities:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
         ref=get_ref(),
-        dict=get_ref() + ".dict",
-        known=get_dbsnp()
+        dict=get_ref_basename() + ".dict",
+        known=get_dbsnp(),
+	known_idx=get_dbsnp_idx()
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:
-        extra=get_regions_param() + config["params"]["gatk"]["BaseRecalibrator"]
+        extra=get_regions_param() + config["params"]["gatk"]["BaseRecalibrator"],
+	java_opts="-Xmx60G -XX:ParallelGCThreads=8"
+    resources:
+        mem_gb=60
+    threads: 8
     log:
         "logs/gatk/bqsr/{sample}-{unit}.log"
     wrapper:
-        "0.27.1/bio/gatk/baserecalibrator"
+        "0.34.0/bio/gatk/baserecalibrator"
 
 
 rule samtools_index:
