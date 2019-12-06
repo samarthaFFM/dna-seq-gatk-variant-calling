@@ -2,10 +2,17 @@ samples: samples.tsv
 units: units.tsv
 references: references.tsv
 
+ref:
+  name: hg19
+  # Path to the reference genome, ideally as it is provided by the GATK bundle.
+  genome: data/ref/genome/ucsc.hg19.fasta
+  # Path to any database of known variants, ideally as it is provided by the GATK bundle.
+  known-variants: data/ref/dbsnp/dbsnp_138.hg19.vcf.gz
+
 filtering:
   # Set to true in order to apply machine learning based recalibration of
   # quality scores instead of hard filtering.
-  vqsr: false
+  vqsr: true
   hard:
     # hard filtering as outlined in GATK docs
     # (https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set)
