@@ -29,16 +29,33 @@ rule trim_reads_pe:
     wrapper:
         "0.30.0/bio/trimmomatic/pe"
 
+rule bwa_index:
+    input:
+        genome_path + "{genome}" + get_ref_ext()
+    output:
+        genome_path + "{genome}.amb",
+        genome_path + "{genome}.ann",
+        genome_path + "{genome}.bwt",
+        genome_path + "{genome}.pac",
+        genome_path + "{genome}.sa"
+    log:
+        "logs/bwa_index/{genome}.log"
+    params:
+        prefix="data/ref/genome/{genome}",
+        algorithm="bwtsw"
+    wrapper:
+        "0.33.0/bio/bwa/index"
 
 rule map_reads:
     input:
-        reads=get_trimmed_reads
+        reads = get_trimmed_reads,
+        ref_bwt = get_ref_basename() + ".bwt"
     output:
         temp("mapped/{sample}-{unit}.sorted.bam")
     log:
         "logs/bwa_mem/{sample}-{unit}.log"
     params:
-        index=config["ref"]["genome"],
+        index = get_ref_basename(),
         extra=get_read_group,
         sort="samtools",
         sort_order="coordinate"
@@ -61,20 +78,41 @@ rule mark_duplicates:
         "0.26.1/bio/picard/markduplicates"
 
 
+rule create_dict:
+    input:
+        genome_path + "{genome}" + get_ref_ext()
+    output:
+        genome_path + "{genome}.dict"
+    log:
+        "logs/picard_create_sequence_dictionary/{genome}.log"
+    conda:
+        "../envs/picard.yaml"
+    shell:
+        "picard CreateSequenceDictionary "
+        "  R={input}"
+        "  O={output}"
+
+
 rule recalibrate_base_qualities:
     input:
         bam=get_recal_input(),
         bai=get_recal_input(bai=True),
-        ref=config["ref"]["genome"],
-        known=config["ref"]["known-variants"]
+        ref=get_ref(),
+        dict=get_ref_basename() + ".dict",
+        known=get_dbsnp(),
+	known_idx=get_dbsnp_idx()
     output:
         bam=protected("recal/{sample}-{unit}.bam")
     params:
-        extra=get_regions_param() + config["params"]["gatk"]["BaseRecalibrator"]
+        extra=get_regions_param() + config["params"]["gatk"]["BaseRecalibrator"],
+	java_opts="-Xmx60G -XX:ParallelGCThreads=8"
+    resources:
+        mem_gb=60
+    threads: 8
     log:
         "logs/gatk/bqsr/{sample}-{unit}.log"
     wrapper:
-        "0.27.1/bio/gatk/baserecalibrator"
+        "0.34.0/bio/gatk/baserecalibrator"
 
 
 rule samtools_index:
