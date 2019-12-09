@@ -6,6 +6,7 @@ rule all:
     input:
         "annotated/all.vcf.gz",
         "qc/multiqc.html",
+        "qc/fastqc.html",
         "plots/depths.svg",
         "plots/allele-freqs.svg"
 
