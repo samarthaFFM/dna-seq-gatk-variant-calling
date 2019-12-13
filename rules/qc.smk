@@ -2,8 +2,8 @@ rule fastqc:
     input:
         unpack(get_fastq)
     output:
-        html="qc/fastqc/{sample}-{unit}.html",
-        zip="qc/fastqc/{sample}-{unit}.zip"
+        html="qc/fastqc/{sample}-{unit}_fastqc.html",
+        zip="qc/fastqc/{sample}-{unit}_fastqc.zip"
     wrapper:
         "0.27.1/bio/fastqc"
 
@@ -22,7 +22,7 @@ rule samtools_stats:
 rule multiqc:
     input:
         expand(["qc/samtools-stats/{u.sample}-{u.unit}.txt",
-                "qc/fastqc/{u.sample}-{u.unit}.zip",
+                "qc/fastqc/{u.sample}-{u.unit}_fastqc.zip",
                 "qc/dedup/{u.sample}-{u.unit}.metrics.txt"],
                u=units.itertuples()),
         "snpeff/all.csv"
